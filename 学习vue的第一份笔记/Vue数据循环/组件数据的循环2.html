@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>数据循环v-for</title>
+	</head>
+	<body>
+		<div id="app">
+			 <input
+			    v-model="newTodoText"
+			    v-on:keyup.enter="addNewTodo"
+			    placeholder="添加故事"
+			  >
+			  <ul>
+			    <!--<todo-item v-for="(todo,index) in todos" v-bind:key="todo.id" v-bind:title="todo.title" v-on:remove="todos.splice(index,1)"></todo-item>-->
+			  	<todo-item v-for="(some,index) in todos" v-bind:title="some" v-bind:key="some.id" v-on:remove="todos.splice(index,1)"></todo-item>
+			  </ul>
+			  
+			  
+			  <hr />
+			  <button v-on:click="warn('Form cannot be submitted yet.', $event)">
+			  	Submit
+			  </button>
+		</div>
+		<template id="add">
+			<li >
+				{{title.title}}{{title.key}}
+				<button @click="$emit('remove')">X</button>
+			</li>
+		</template>
+	</body>
+</html>
+<script src="../Vue2.5.2.js"></script>
+<script>
+	Vue.component('todo-item', {
+		props:['title'],
+		template:'#add'
+	});
+	var mvc=new Vue({
+		el:'#app',
+		data:{
+			newTodoText: '',
+		    todos: [
+		      {
+		        id: 1,
+		        title: 'Do the dishes',
+		      },
+		      {
+		        id: 2,
+		        title: 'Take out the trash',
+		      },
+		      {
+		        id: 3,
+		        title: 'Mow the lawn'
+		      }
+		    ],
+		    nextTodoId: 4
+		},
+		methods:{
+			addNewTodo: function () {
+		    	this.todos.push({
+		        	id: this.nextTodoId++,
+		        	title: this.newTodoText
+		    	})
+		    	this.newTodoText = ''
+		   },
+		    warn: function (message, event) {
+			    // 现在我们可以访问原生事件对象
+			    if (event) event.preventDefault()
+			    alert(message)
+			 }
+		}
+	});
+	
+</script>

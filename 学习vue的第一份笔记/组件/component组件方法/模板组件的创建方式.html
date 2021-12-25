@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>局部组件/全局组件</title>
+	</head>
+	<body>
+		<div id="zujian">
+			<aaa></aaa>
+			<bbb></bbb>
+			<ccc></ccc>
+			<ddd></ddd>
+			<js></js>
+		</div>
+		<template id="coo">
+			<div id="">
+				<p>这是组件内容</p>
+			</div>
+		</template>
+	</body>
+
+</html>
+<script type="iii" id="jszujian">
+	<div>
+		<span>这是javascript模板</span>	
+	</div>
+</script>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script>
+	//extend方法新建模板
+	var blank=Vue.extend({
+		template:'#coo'
+	})
+	
+	//这个是全局组件
+	Vue.component('ccc',blank)
+	
+	 
+	var vm = new Vue({
+		el:'#zujian',
+		//局部组件
+		components:{
+			'aaa':blank,
+			'bbb':blank,
+			'ddd':{
+				template:"<span>这是局部组件</span>"
+			},
+			'js':{
+				template:'#jszujian'
+			}
+			
+		}
+	})
+</script>

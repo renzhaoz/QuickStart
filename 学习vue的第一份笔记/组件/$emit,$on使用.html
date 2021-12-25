@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>父子组件间的事件响应</title>
+	</head>
+	<style>
+		p{
+			line-height: 30px;
+			background: lightblue;
+		}
+	</style>
+	<body>
+		<div id="zujian">
+			<aaa></aaa>
+			<!--父级组件-->
+		</div>
+		<template id="aaa">
+			<div id="warp" > 
+				<p  v-for="item in datas">{{item}}</p>
+				<hr/>
+				<bbb v-on:clickin="clickout" :childatas="datas"></bbb>
+			</div>
+		</template>
+		<template id="bbb" >
+			<div class="warp">
+				<p  v-on:click="clickthis($event)" v-for="item in childatas" >{{item}}</p>
+			</div>
+		</template>
+	</body>
+
+</html>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script>
+var vm=new Vue( {
+	el: "#zujian",
+	components: {
+		'aaa': {
+			data() {
+				return {
+					datas: [1, 11, 2123, 97979]
+				}
+			},
+			template: '#aaa',
+			methods: {
+				clickout(event) {
+					console.log("父组件事件响应!!"+event.target)
+				}
+			},
+			components: {
+				'bbb': {
+					props: ['childatas'], 
+					template: "#bbb", 
+					methods: {
+						clickthis(event) {
+							this.$emit('clickin',event)
+							console.log("子组件事件激活!")
+						}
+					}
+				}
+			}
+		}
+	}
+});
+</script>

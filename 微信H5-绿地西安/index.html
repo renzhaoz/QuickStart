@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>绿城西安</title>
+		<meta content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=0" name="viewport">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="format-detection" content="telephone=no">
+		<script>
+			! function(e, t) {
+				var a, i = document.documentElement,
+					n = navigator.userAgent,
+					r = /meitu|meipai/gi.test(n),
+					s = function() {
+						var t = (i.getBoundingClientRect().width || 320) / 320 * 20;
+						t = t > 40 ? 40 : t, i.style.fontSize = t + "px";
+						var a = parseFloat(e.getComputedStyle(i).getPropertyValue("font-size"));
+						a === t || r || (t += t - a, i.style.fontSize = t + "px", e.fontSize = t)
+					};
+				e.addEventListener("resize", function() {
+					clearTimeout(a), a = setTimeout(s, 100)
+				}, !1), e.addEventListener("pageshow", function(e) {
+					e.persisted && (clearTimeout(a), a = setTimeout(s, 100))
+				}, !1), s()
+			}(window),
+			function(e) {
+				var t = e.sdk_url,
+					a = e.name,
+					i = window,
+					n = document,
+					r = "script",
+					s = null,
+					o = null;
+				i.sensorsDataAnalytic201505 = a, i[a] = i[a] || function(e) {
+					return function() {
+						(i[a]._q = i[a]._q || []).push([e, arguments])
+					}
+				};
+				for(var u = ["track", "quick", "register", "registerPage", "registerOnce", "trackSignup", "trackAbtest", "setProfile", "setOnceProfile", "appendProfile", "incrementProfile", "deleteProfile", "unsetProfile", "identify", "login", "logout", "trackLink", "clearAllRegister", "getAppStatus"], c = 0; c < u.length; c++) i[a][u[c]] = i[a].call(null, u[c]);
+				i[a]._t || (s = n.createElement(r), o = n.getElementsByTagName(r)[0], s.async = 1, s.src = t, s.setAttribute("charset", "UTF-8"), o.parentNode.insertBefore(s, o), i[a].para = e)
+			}
+			//			({
+			//				sdk_url: "https://public.static.meitudata.com/meitu/lib/sensorsdata.min.js",
+			//				name: "sa",
+			//				web_url: "https://sensors.meitu-int.com/?project=beautycam",
+			//				server_url: "https://sensorsdata.data.meitu.com/sa?project=beautycam",
+			//				heatmap: {}
+			//			});
+			//			var ua = window.navigator.userAgent.toLowerCase(),
+			//				isMeiyan = /(com.meitu.myxj|com.meitu.meiyancamera)/gi.test(ua);
+			//			sa.registerPage({
+			//				campaign_name: "后来的我们",
+			//				H5Name: "后来的我们",
+			//				isInApp: isMeiyan ? "是" : "否"
+			//			})
+		</script>
+
+		<link href="./dist/css/app.css?71ced14d" rel="stylesheet">
+	</head>
+
+	<body>
+		<div class="App">
+			<span id="J-STAT-SITE-ID" value="000001610D57CBA5"></span>
+			<div class="Page animation js-page js-page-animation" id="animation">
+				<div class="swiper-container">
+					<div class="swiper-slide">
+						<div class="photo-frame photo2"></div>
+						<div class="content">
+							<img src="dist/images/ii/2.png" />
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="photo-frame photo3"></div>
+						<div class="content">
+							<img src="dist/images/ii/3.png" />
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="photo-frame photo4">
+
+						</div>
+						<div class="content">
+							<img src="dist/images/ii/4.png" />
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="photo-frame photo5">
+
+						</div>
+						<div class="content">
+							<img src="dist/images/ii/5.png" />
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="photo-frame photo6">
+
+						</div>
+						<div class="content">
+							<img src="dist/images/ii/6.png" />
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="photo-frame photo7">
+
+						</div>
+						<div class="content">
+							<img src="dist/images/ii/7.png" />
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="photo-frame photo8">
+
+						</div>
+						<div class="content">
+							<img src="dist/images/ii/8.png" />
+						</div>
+					</div>
+					<div class="next"></div>
+				</div>
+			</div>
+
+			<div class="Page home js-page js-page-home" id="home">
+				<!--<div class="logos"></div>-->
+
+				<div class="body">
+					<!--<div class="main-img"></div>-->
+					<div style="display: none;" class="input-name"><input type="text" placeholder="输入你的名字!" maxlength="12" id="inputName"></div>
+					<div class="upload-btn Button js-upload-home-wrap">上传图片 美好定格<input type="file" class="js-upload-home" accept="image/*"></div>
+				</div>
+			</div>
+
+			<div class="Page result js-page js-page-result" id="result">
+				<div class="body">
+					<div class="bill">
+						<div class="top"></div>
+						<div class="main-img">
+							<img src="" class="js-image-result">
+							<img class="bill-text" src="dist/images/text/1.png">
+							<div class="name">
+								<!--<div class="text">
+									<img src="dist/images/04.png" />
+								</div>
+								<div class="name-container"></div>-->
+							</div>
+						</div>
+						<div class="bottom">
+							<!--<img src="dist/images/bill-logo.png" class="bill-logo">-->
+							<img src="dist/images/date-logo.png" class="date-logo">
+							<img src="dist/images/qrcode.jpg" class="qrcode">
+						</div>
+						<div class="touch-mask"></div>
+
+					</div>
+					<div class="btns">
+						<div class="change-btn Button"><span>换张背景</span><input type="file" class="js-upload-result" accept="image/*"></div>
+						<div class="take-photo Button"><span>生成海报</span></div>
+
+					</div>
+				</div>
+				<div class="take-mask"></div>
+
+				<div class="Widget download js-download">
+					<!--<div class="left">更多效果</div>-->
+					<div class="share js-button-share">
+						<img src="dist/images/02.png" />
+					</div>
+				</div>
+			</div>
+
+			<div class="result-model">
+				<div class="result-wrap">
+					<a href="javascript:;" class="close js-result-model-close"></a>
+					<div class="bill-result"></div>
+					<div class="remind">长按保存图片</div>
+				</div>
+			</div>
+
+			<div class="Page share js-page js-page-share" id="share">
+				<div class="body">
+					<!--<img class="main-font" src="dist/images/main-font.png">-->
+					<!--<div class="slogan">&#x82E5;&#x4F60;&#x542C;&#x61C2;&#x4E86;&#x300A;&#x540E;&#x6765;&#x300B;&#xFF0C;&#x4F60;&#x4EEC;&#x7684;&#x540E;&#x6765;&#x4F1A;&#x662F;&#x4EC0;&#x4E48;&#x6837;&#xFF1F;</div>-->
+					<img class="main-img" src="dist/images/main-img.png">
+					<!--<div class="back-btn Button">&#x642D;&#x4E58;&#x65F6;&#x5149;&#x673A;</div>-->
+				</div>
+			</div>
+
+			<div class="Widget waiting visible" id="js-waiting">
+
+				<div class="content">
+					<!--<p>加载进度</p>-->
+					<!--<div class="msg">&#x522B;&#x6025;&#xFF0C;</div>
+					<div class="msg">&#x540E;&#x6765;&#x603B;&#x4F1A;&#x6765;</div>-->
+					<div class="progress">0%</div>
+				</div>
+			</div>
+
+			<div class="Widget loading" id="js-loading">
+				<div class="content">
+					<!--<div class="msg">&#x522B;&#x6025;</div>-->
+					<!--<div class="msg">&#x540E;&#x6765;&#x603B;&#x4F1A;&#x6765;</div>-->
+					<div class="progress">0%</div>
+				</div>
+			</div>
+			<div class="Widget remind">图片可拖动调整位置!</div>
+			<div class="Widget imgview" id="js-imgview">
+				<img src="" alt="img">
+			</div>
+		</div>
+		<audio id="dj" src="123.mp3"></audio>
+		<script src="dist/js/zepto.js"></script>
+		<script type="text/javascript" src="./dist/js/app.js"></script>
+	</body>
+
+</html>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+	window.onload = function() {
+		$.ajax({
+			type: "get",
+			dataType: "json",
+			url: '../JSPI_TOKEN/return.php',
+			data: {
+				pageUrl: location.href.split('#')[0]
+			},
+			timeout: 5000,
+			success: function(res) {
+				console.log(res);
+				wx.config({
+					appId: res.appId, // 必填，企业号的唯一标识，此处填写企业号corpid
+					timestamp: res.timestamp, // 必填，生成签名的时间戳
+					nonceStr: res.nonceStr, // 必填，生成签名的随机串
+					signature: res.signature, // 必填，签名，见附录1
+					jsApiList: [
+						'onMenuShareTimeline',
+						'onMenuShareAppMessage',
+						"onMenuShareQQ",
+						"openLocation",
+						"uploadImage",
+						"chooseImage",
+						"getLocation",
+						"startRecord",
+						"stopRecord",
+						"onVoiceRecordEnd",
+						"playVoice",
+						"pauseVoice",
+						"stopVoice",
+						"onVoicePlayEnd",
+						"uploadVoice",
+						"downloadVoice",
+					] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+				});
+			}
+		});
+
+		//微信分享
+		wx.ready(function() {
+			//聊天分享链接名片
+			wx.onMenuShareAppMessage({
+				title: '带你穿越西安 发现美好', // 分享标题
+				desc: '留下你爱西安的美好瞬间!', // 分享描述
+				link: window.location.href, // 分享链接
+				imgUrl: 'www.xahearty.com/posteee/dist/iamges/8.png', // 分享图标
+				type: '', // 分享类型,music、video或link，不填默认为link
+				dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+				success: function() {
+					vm.shareAdd();
+				},
+				cancel: function() {
+					// 用户取消分享后执行的回调函数
+				}
+			});
+			//朋友圈分享链接
+			wx.onMenuShareTimeline({
+				title: '带你穿越西安 发现美好', // 分享标题
+				link: window.location.href, // 分享链接
+				imgUrl: 'www.xahearty.com/posteee/dist/iamges/8.png', // 分享图标
+				success: function() {
+					// 用户确认分享后执行的回调函数
+					vm.shareAdd();
+				},
+				cancel: function() {
+					// 用户取消分享后执行的回调函数
+				}
+			});
+			document.getElementById("dj").play();
+		}); //所有和微信有关的操作都放到 function wxhasready(){}
+
+	}
+</script>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Dom操作</title>
+	</head>
+	<body>
+		<div id="app">
+			<p>{{msg}}</p>
+			<p v-bind:title="message">查看此处的信息提示啊</p>
+			<p v-if="seen" @click="seen=false">显示隐藏操作!!</p>
+			<ol>
+				<li v-for="book in bookArr">{{book}}</li>
+			</ol>
+			<hr />
+			<p>{{delData}}</p>
+			<button @click="del" >处理信息</button> <!--v-once执行一次的函数!-->
+			<hr />
+			<p v-html="didiHtml"></p>
+			<hr />
+			<p>1=2?对吗?{{onser()}}</p>
+			<hr />
+			<div>{{fullName}}</div>
+			<div>{{firstName}}</div>
+			<div>{{lastName}}</div>
+		</div>
+	</body>
+</html>
+<script src="../Vue2.5.2.js"></script>
+<script>
+	var mvc=new Vue({
+		el:'#app',
+		data:{
+			msg:'你好啊!二蛋.',
+			message:'页面加载于'+new Date().toLocaleDateString(),
+			seen:true,
+			bookArr:['红楼梦','西厢记','大漠荒草','墨龙'],
+			delData:"数据处理!",
+			didiHtml:'<h1>Is a good day today?{{msg}}</h1>',
+			answer:'不是的!',
+			firstName: 'Foo',
+		    lastName: 'Bar',
+		    fullName: 'Foo Bar'
+ 		},
+ 		methods:{
+ 			del(){
+ 				this.delData=this.delData.split("").reverse().join("");
+ 			},
+ 			onser(){
+ 				return this.answer.split("").reverse().join(";");
+ 			}
+ 			
+ 		},
+ 		 watch:{
+		    firstName: function (val) {
+		      this.fullName = val + ' ' + this.lastName
+		    },
+		    lastName: function (val) {
+		      this.fullName = this.firstName + ' ' + val
+		    }
+		  }
+ 	
+	});
+	mvc.bookArr.push("复兴计划")
+</script>

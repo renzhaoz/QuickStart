@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>组件</title>
+	</head>
+	<body>
+		<div id="zujian">
+			<aaa></aaa>	
+		</div>
+	</body>
+
+</html>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script>
+	//全局组件
+	var Aaa=Vue.extend({
+		data(){
+			return {
+				msg:"Im  U"
+			};
+		},
+		methods:{
+			change(){
+				this.msg='我是小明!'
+			}
+		},
+		template:"<h2 @click='change()'>{{msg}}</h2>"
+//		msg必须是一个函数必须返回一个对象
+		
+	});
+	Vue.component("aaa",Aaa);
+//	Vue.component("aaa",{
+//		template:"<span>{{msg}}</span>" 
+//	})
+	var vm = new Vue({
+		el: '#zujian'
+	});
+</script>

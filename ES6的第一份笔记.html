@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>ES6语法新规范</title>
+	</head>
+	<body>
+		<h3>ES6语法规范</h3>
+		<hr />
+		<h4>变量声明let</h4>
+		<ol>
+			<li>let命令:声明新的变量,且变量只在范围内生效!</li>
+			<li>作用域重合的let声明各自独立生效!</li>
+			<li>变量在使用之后声明,var报错undefined,let报错ReferenceError!</li>
+			<li class="let">let声明必处于作用域首航,否则就是死域,报错ReferenceError!,即使变量之前被声明;</li>
+			<li>let命令在声明之后,再次声明同一个变量会报错!</li>
+		</ol>
+		<hr />
+		<h4>变量生命const</h4>
+		<ol>
+			<li>const声明的变量是一个只读的变量,不会改变,初始值必须赋予!</li>
+			<li>const声明的对象是可以赋予对象属性的!是可以push数据的!</li>
+			<li>相当于const声明的对象是被冻结的,解冻使用Object.freeze({})方法!</li>
+			<li>当对象是一个对象数组时,所有的对象也应该解冻!</li>
+		</ol>
+	</body>
+</html>
+<script>
+	var b=2;
+	(function(){
+		let b=1;
+	})();
+	console.log(b);//返回b=2
+	for (let i=0;i<3;i++) {
+		let i="你好,再见";
+		console.log(i);//输出三个你好再见
+	};
+	
+	(function(){
+		//alert(b);
+		//let b="bbbb";//报错ReferenceError
+	})();
+	
+	//var x=x;//不报错
+	//let x=x;//x is not defined;
+	
+	
+	function aa(){
+		let a="3";
+		//var a="32";//报错
+		//let a="12121";//报错
+		console.log(a);
+	}
+	aa();
+	function bb(arr){
+		{let arr;}//不报错
+//		let arr; //报错
+	};bb();
+	
+	
+	
+	//解冻对象本身
+	var constantize = (obj) => {
+	  Object.freeze(obj);
+	  Object.keys(obj).forEach( (key, i) => {
+	    if ( typeof obj[key] === 'object' ) {
+	      constantize( obj[key] );
+	      console.log(obj[key]);
+	    }
+	  });
+	};
+	
+	//应用
+	let [ac,bc,cc]=["你好","sb","再见"];
+	console.log(ac+bc+cc);
+	
+//	自动解析
+	const [q,w]='你好';let {length :ll}="你好sb";console.log(ll);//4
+	console.log(q+w);
+</script>

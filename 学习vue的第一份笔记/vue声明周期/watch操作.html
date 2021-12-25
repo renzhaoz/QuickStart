@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Dom操作</title>
+	</head>
+
+	<body>
+		<div id="app">
+			<p>{{hello}}{{see}}</p>
+			<input type="text" v-model="hello"/>
+			<input type="text" v-model="see"/>
+		</div>			
+	</body>
+</html>
+<script src="../Vue2.5.2.js"></script>
+		<script type="text/javascript">     
+		    var vm = new Vue( {  
+		        el: '#app',  
+		        data: { 
+		        	hello:'你好啊,二狗!',
+		        	see:'嘿嘿嘿'
+		        },
+		        watch:{
+		        	hello:function(){
+		        		return this.hello="......"
+		        	},
+		        	see:function(){
+		        		this.see="笑啥?"
+		        	}
+		        }
+		          
+		    });
+		</script>

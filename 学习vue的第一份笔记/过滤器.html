@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+	</head>
+
+	<body>
+		<div id="guoluqi">
+			<!-- {{"welcome" | uppercase}} -->
+			<!-- 2.0版本已经弃用 -->
+			<p>{{message | uppercase}}</p>
+			<!-- 首字母大写 -->
+			<p>{{123}}</p>
+			<!--需要在function中进行filter-->
+			<p v-for="num in newNum">除2与0的数的下标: {{num}}</p>
+			<p v-for="n in curr(nums)">除3余1的数的下标: {{n}}</p>
+			<p v-for="n in 3">小于10的数{{n}}</p>
+
+		</div>
+	</body>
+
+</html>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script>
+	//
+	Vue.filter('uppercase', function(value) {
+		if(!value) {
+			return ""
+		}
+		value = value.toString()
+		return value.charAt(0).toUpperCase() + value.slice(1)
+	});
+	new Vue({
+		el: "#guoluqi",
+		data: {
+			message: 'beyou',
+			nums: [1, 2, 3, 4, 5, 6, 7, 8, 9, 44]
+		},
+		methods: {
+			curr: function(nums) {
+				return nums.filter(function(number) {
+					return number % 2 === 0
+				})
+			}
+		},
+		computed: {
+			newNum: function() {
+				return this.nums.filter(function(number) {
+					return number % 3 === 1
+				})
+			},
+
+		}
+	});
+</script>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>父子组件</title>
+	</head>
+
+	<body>
+		<div id="zujian">
+			<fa-module></fa-module>
+		</div>
+		<template id="fa-content">
+			<div>
+				<h1>这是父级组件数据</h1>
+				<button @click="makeSure">请确定翠花性别!</button>
+				<p v-for="item in faData">name:{{item.name}},性别:{{item.sex}}</p>
+				<hr />
+				<children :send="faData"></children>
+			</div>
+		</template>
+		<template id="chil">
+			<div>
+				<h2>这是子组件数据</h2>
+				<p v-for="item in send">name:{{item.name}},性别:{{item.sex}}</p>
+				<button @click="change">确定翠花为男</button>
+			</div>
+		</template>
+	</body>
+
+</html>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script>
+	//父级组件向子组件传递数据
+	var vm = new Vue({
+		el: "#zujian",
+		methods: {
+		},
+		components: {
+			'fa-module': {
+				data() {
+					return {
+						faData: [{
+								'name': '小明',
+								'sex': '男'
+							},
+							{
+								'name': '二蛋',
+								'sex': '女'
+							},
+							{
+								'name': '翠花',
+								'sex': '不知'
+							}
+						]
+					}
+				},
+				template: '#fa-content',
+				methods: {
+					makeSure() {
+						Vue.set(this.faData[2], 'sex', '调查中')
+					}
+				},
+				components: {
+					'children': {
+						props: ['send'],
+						template: '#chil',
+						methods: {
+							change(event) {
+								Vue.set(this.send[2], 'sex', '你没有权限!')
+							}
+						}
+					}
+				}
+			}
+		}
+	});
+</script>

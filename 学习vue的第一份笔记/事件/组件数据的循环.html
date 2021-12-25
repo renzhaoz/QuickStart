@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>事件</title>
+	</head>
+	<body>
+		<div id="app">
+			
+			<!-- 只有在 keyCode 是 13 时调用 vm.submit() -->
+			<input v-on:keyup.13="submit">
+			<!--全部的按键别名：
+			.enter
+			.tab
+			.delete (捕获“删除”和“退格”键)
+			.esc
+			.space
+			.up
+			.down
+			.left
+			.right-->
+			<!--可以通过全局 config.keyCodes 对象自定义键值修饰符别名：
+			可以使用 v-on:keyup.f1
+			Vue.config.keyCodes.f1 = 112-->
+			
+			
+			
+			<hr />
+			<!-- 阻止单击事件冒泡 -->
+			<a v-on:click.stop="doThis"></a>
+			<!-- 提交事件不再重载页面 -->
+			<form v-on:submit.prevent="onSubmit"></form>
+			<!-- 修饰符可以串联 -->
+			<a v-on:click.stop.prevent="doThat"></a>
+			<!-- 只有修饰符 -->
+			<form v-on:submit.prevent></form>
+			<!-- 添加事件侦听器时使用事件捕获模式 -->
+			<div v-on:click.capture="doThis">...</div>
+			<!-- 只当事件在该元素本身 (比如不是子元素) 触发时触发回调 -->
+			<div v-on:click.self="doThat">...</div>
+			<hr />
+			
+			<div @click="alert">
+				<button @click.prevent.self>阻止事件</button>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="../Vue2.5.2.js"></script>
+<script>
+	var mvc=new Vue({
+		el:'#app',
+		data:{
+					
+		},
+		methods:{
+			alert:function(){
+				event.preventDefault();
+				alert(112233)
+			}
+			//阻止事件
+			//event.preventDefault()
+			//event.stopPropagation()
+		}
+	});
+</script>

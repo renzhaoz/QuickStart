@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>混合</title>
+	</head>
+	<body>
+		<div id="data">
+			
+		</div>
+	</body>
+</html>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script>
+var vm=new Vue({
+		el:'#data'	
+	});
+//	定义混合对象
+	var mixt = {
+		created:function(){
+			this.hello()
+		},
+		methods:{
+			hello:function(){
+				console.log("hello World!")
+			}
+		}
+	}
+//引入实例
+ var xxx=Vue.extend({
+ 	//参数:[声明的对象]
+ 	mixins:[mixt]
+ })
+ var component=new xxx()
+
+//混合的合并
+//当混合的合并出现相同对象时,使用实例中的方法对象
+//例如创建的mixins的methods中有move方法,实例中也有,这时执行实例中的方法
+	var mix1={
+		created:function(){
+			console.log("这是111")
+		}
+	}
+	new Vue({
+		mixins:[mix1],
+		created:function(){
+			console.log('加入111')
+		}
+	})
+</script>

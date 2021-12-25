@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>过渡/动画</title>
+	</head>
+	<body>
+		<div id="app">
+			
+		</div>
+	</body>
+</html>
+<script src="../Vue2.5.2.js"></script>
+<script>
+	var mvc=new Vue({
+		el:'#app',
+		//动画的加载在Vue中被明了,主要包括出现动画和消失动画
+		//在以前的版本中可以直接写 transition="name",
+		//但是在2.0以后需要用transition标签包裹发生动画的元素,
+		//循环元素必须设置key值(强制否则报错)
+		
+		//Vue动画满足条件渲染:v-if v-show 动态组件	组件根节点的创建
+		
+		//当一个元素出现复杂动画时,建议将元素多重包裹,分开设置动画
+		
+//		书写方法1:
+			.fade-enter-active, .fade-leave-active {
+				//进入动画和离开动画
+				transition: opacity .5s
+			}
+			.fade-enter, .fade-leave-to /* .fade-leave-active in below version 2.1.8 */ {
+				//最终状态
+				pacity: 0
+			}
+			
+			//事件的监听    transitioned和animationed都可以监听动画的完成!
+			
+			//下列的duration可以设置独立设置该动画的执行事件
+			<transition :duration="{ enter: 500, leave: 800 }">...</transition>
+		
+		
+		
+//		书写方法2:
+//			声明javascript钩子
+			<transition>
+				  v-on:before-enter="beforeEnter"
+				  v-on:enter="enter"
+				  v-on:after-enter="afterEnter"
+				  v-on:enter-cancelled="enterCancelled"
+				  v-on:before-leave="beforeLeave"
+				  v-on:leave="leave"
+				  v-on:after-leave="afterLeave"
+				  v-on:leave-cancelled="leaveCancelled"
+			</transition>
+			methods: {
+			  beforeEnter: function (el) {'进入之前'},
+			  enter: function (el, done) {
+//			  	进入函数
+			    done()
+			  },
+			  afterEnter: function (el) {"进入执行完后之后"},
+			  enterCancelled: function (el) {"执行完成"},
+			  beforeLeave: function (el) {},
+			  leave: function (el, done) {
+			    done()
+			  },
+			  afterLeave: function (el) {
+			  },
+			  leaveCancelled: function (el) {
+			  }
+			}
+			//这里的done是必须的,否则过渡会立即完成
+			
+			
+			
+			
+			
+			//css过渡书写方法
+			.slide-fade-enter-active {
+			  transition: all .3s ease;
+			}
+			.slide-fade-leave-active {
+			  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+			}
+			.slide-fade-enter, .slide-fade-leave-to{
+//			  enter和leave时执行的动画函数
+			  transform: translateX(10px);
+			  opacity: 0;
+			}
+
+
+
+		
+		
+		//********************************************************
+//		动画
+//		动画一般是对元素挂载css来执行的
+			enter-class
+			enter-active-class
+			enter-to-class (2.1.8+)
+			leave-class
+			leave-active-class
+			leave-to-class (2.1.8+)
+		<transition name="custom-classes-transition" enter-active-class="animated tada" leave-active-class="animated bounceOutRight">
+   			<p v-if="show">hello</p>
+		</transition>
+	
+</script>

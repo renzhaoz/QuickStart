@@ -1,0 +1,123 @@
+#wraper{
+	width: 100%;
+	height: 100%;
+	background-image: url(../img/bg.jpg);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+#userData{
+	position: absolute;
+	top: 38.5%;
+	left: 0;
+	width: 100%;
+	height: 3.5%;
+	z-index: 9;
+	/*background: lightblue;*/
+}
+#userData .Uget{
+	position: absolute;
+	width: 38%;
+	height: 100%;
+	left: 32%;
+}
+#userData .Uget span{
+	float: left;
+	display: inline-block;
+	width: 15%;
+	height: 100%;
+	background: url(../img/NNN.png) no-repeat center;
+	background-size:100% 100%;
+	margin-left: 0.5%;
+}
+#userData .Uget span.get{
+	background:url();
+}
+
+
+
+
+.shanDeng {
+	position: absolute;
+	width: 56%;
+	height: 33%;
+	top: 45%;
+	left: 22%;
+}
+.shanDeng #luck{
+	height: 100%;
+	width: 100%;
+}
+.shanDeng #luck table{
+	width: 100%;
+	height: 100%;
+}
+#btn .cjBtn,
+.shanDeng .active,
+.shanDeng td {
+	background: no-repeat center;
+}
+
+
+/*抽奖按钮*/
+#btn.cjBtn {
+/*	background-image: url(../img/cjBtn.png);*/
+	background-size: 100% 100%;
+}
+
+#btn.cjBtnDom {
+	/*background-image: url(../img/buttonDown.png);*/
+}
+
+#luck .active {
+	background-image: url(../img/active.png);
+}
+
+.shanDeng td {
+	text-align: center;
+	/*background:lightblue;*/
+	/*background-size: 100% 100%;*/
+}
+
+
+#userData h3{
+	position: fixed;
+	font-size: 12px;
+	bottom: 16%;
+	left: 42%;
+	width: 16%;
+	line-height: 20px;
+	text-align: center;
+	color:#72070D;
+	background: #fff;
+	border-radius: 10px;
+}
+.btnWrap{
+	width: 100%;
+}
+.btnWrap .addCount{
+	position: fixed;
+	bottom: 9%;
+	left: 46%;
+	width: 10%;
+	height: 6%;
+}
+.btnWrap .role{
+	position: fixed;
+	bottom: 9%;
+	right: 24%;
+	width: 10%;
+	height: 6%;
+}
+.share,.success,.rolePage{
+	/*display: none;*/
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 9999;
+}
+.share img,.success img,.rolePage img{
+	width: 100%;
+	height: 100%;
+}

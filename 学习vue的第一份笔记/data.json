@@ -1,0 +1,20 @@
+{
+"people": [
+		{
+			"firstName": "小明",
+			"age": "18"
+		}, {
+			"firstName": "翠花",
+			"age": "38"
+		}, {
+			"firstName": "冬瓜",
+			"age": "13"
+		}, {
+			"firstName": "二蛋",
+			"age": "11"
+		}, {
+			"firstName": "萌妹",
+			"age": "16"
+		}
+	]
+}

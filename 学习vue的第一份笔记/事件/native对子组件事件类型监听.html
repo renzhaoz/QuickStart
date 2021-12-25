@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>事件</title>
+	</head>
+	<body>
+		<div id="myApp">
+			<p v-for="i in arr">{{i}}</p>
+			<hr />
+			<ttt v-on:dblclick.native="do22"></ttt>
+		</div>
+		<template id="my">
+			<div>
+				<p>ddddddddddd</p>
+				<h1 @dblclick="do11">asdasadasa</h1>
+			</div>
+		</template>
+	</body>
+</html>
+<script src='https://cdn.bootcss.com/vue/2.2.2/vue.min.js'></script>
+<script>
+	var vm=new Vue({
+		el:"#myApp",
+		data:{
+			arr:[1,2,444,454546]
+		},
+		methods:{
+			do22(){
+				console.log("检测click事件")
+			}
+		},
+		components:{
+			'ttt':{
+				template:'#my',
+				methods:{
+					do11(){
+						console.log("adaasadaaaasdas")
+					}
+				}
+			}
+			
+		}
+	})
+</script>

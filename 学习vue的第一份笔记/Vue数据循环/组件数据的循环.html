@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>数据循环v-for</title>
+	</head>
+	<body>
+		<div id="app">
+			<!--一个对象的v-for-->
+			<ul v-for="some in userInfor">
+				<li>{{some}}</li>
+			</ul>
+			<hr />`
+			<!--两个参数-->
+			<ul v-for="(value,key) in userInfor">
+				<li>{{value}}:{{key}} </li>
+			</ul>
+			<hr />
+			
+			<!--三个参数-->
+			<ul v-for="(value,key,index) in userInfor">
+				<li>{{value}}{{key}}{{index}}</li>
+			</ul>
+			
+			<hr />
+			<!--修改对象参数中的某一个-->
+			<ol  v-for="item in arr">
+				<li>{{item.name}}.{{item.age}}.{{item.sex}}</li>
+			</ol>
+			<button @click="change()">改变小明的年龄</button>
+		</div>
+	</body>
+</html>
+<script src="../Vue2.5.2.js"></script>
+<script>
+	var mvc=new Vue({
+		el:'#app',
+		data:{
+			arr:[{
+				name:'小明',
+				age:'12',
+				sex:"男"
+			},
+			{
+				name:'二蛋',
+				age:'15',
+				sex:"男"
+			},{
+				name:'冬瓜',
+				age:'18',
+				sex:"女"
+			}],
+			userInfor:{
+				name:"小花",
+				age:'38',
+				sex:"女"
+			}
+		},
+		methods:{
+			change:function(){
+				//这个对象修改是不会成功的!
+//				mvc.arr[0]={name:"大明",age:"11",sex:'nv'};	
+				
+				//这样添加多个对象相当于prototype
+				this.userInfor= Object.assign({}, this.userInfor, {
+				  loveNum: 27,
+				  favoriteColor: 'Vue Green'
+				})
+				console.log(this.arr)
+			}
+		}
+	});
+	Vue.set(mvc.userInfor,"far",'大明');
+	console.log(mvc.userInfor);
+	
+</script>

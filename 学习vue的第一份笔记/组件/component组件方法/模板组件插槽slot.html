@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>组件</title>
+	</head>
+	<body>
+		<div id="zujian">
+			<aaa>
+				<!--<ul slot="ul-slot">
+					<li>1</li>
+					<li>2</li>
+					<li>3</li>
+				</ul>
+				<ol slot="ol-slot">
+					<li>3</li>
+					<li>2</li>
+					<li>1</li>
+				</ol>-->
+			</aaa>
+			<!--父级组件-->
+		</div>
+		<template id="aaa">
+			<div class="warp">
+				<h1>你好啊!</h1>
+				<slot name="ul-slot">这是站位符号/当aaa标签为空的时候显示占位符/否则显示aaa本身内容</slot>
+				<p>welcome</p>
+				<!--指向型的占位符,使用name属性-->
+				<slot name="ol-slot">commm</slot>
+			</div>
+		</template>
+	</body>
+
+</html>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script>
+	//注入方式
+	//局部组件注入
+	//全局组件注入
+	//slot定位注入
+	var vm = new Vue({
+		el: "#zujian",
+		components: {
+			'aaa':{
+				template:"#aaa"
+			}
+		}
+	});
+
+</script>

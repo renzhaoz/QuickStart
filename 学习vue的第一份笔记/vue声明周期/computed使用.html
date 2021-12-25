@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>计算属性</title>
+	</head>
+	<body>
+		<div id="app">
+			<p>你买了{{num1}}个黄瓜,{{num2}}个茄子,一共{{addNum}}斤.</p>
+		</div>			
+	</body>
+</html>
+<script src="../Vue2.5.2.js"></script>
+		<script type="text/javascript">     
+		    var vm = new Vue({  
+		        el: '#app',  
+		        data: { 
+		        	num1:10,
+		        	num2:12
+		        },
+		        computed:{
+		        	addNum:function(){
+		        		return this.num1*10+this.num2*9;
+		        	}
+		        }
+		    });
+		</script>

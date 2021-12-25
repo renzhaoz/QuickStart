@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>animate+vue</title>
+		<style>
+			.box{
+				width:100px;
+				height: 100px;
+				background: red;
+				transition:all 3s linear;
+			}
+			
+		</style>
+		<!--<link rel="stylesheet" type="text/css" href="animate.css"/>-->
+		<!--v-enter: 定义进入过渡的开始状态。在元素被插入时生效，在下一个帧移除。
+		v-enter-active: 定义进入过渡的结束状态。在元素被插入时生效，在transition/animation 完成之后移除。
+		v-leave: 定义离开过渡的开始状态。在离开过渡被触发时生效，在下一个帧移除。
+		v-leave-active: 定义离开过渡的结束状态。在离开过渡被触发时生效，在transition/animation 完成之后移除。-->
+	</head>
+	<body>
+		<div id="data">
+			<button @click="show()">按钮</button>
+			<transition name="newAnimate" v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:after-enter="afterEnter">
+				<div class="box inner-hook" v-show="ddc"></div>
+			</transition>
+		</div>
+	</body>
+</html>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script>
+	//vue resource数据请求
+	//跨域
+	new Vue({
+		el:'#data',
+		data:{
+			ddc:true
+		},
+		methods:{
+			show(){
+				this.ddc=!this.ddc
+			},
+			beforeEnter(el){
+				console.log(el)
+			},
+			enter(el,done){
+					console.log(el)
+			},
+			afterEnter(el){
+				console.log(el)
+			}			
+		},
+	});
+</script>

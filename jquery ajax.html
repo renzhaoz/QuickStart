@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ajax笔记</title>
+	<style>
+		*{
+			margin: 0 auto;
+			padding:0;
+			text-align: center;
+		}
+		.content{
+			width: 1000px;
+			height: 300px;
+			border:10px solid #ccc;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="content" id="om">
+	</div>
+	
+	<button id="btn" onclick="change()">请求数据</button>
+
+</body>
+</html>
+<script type="text/javascript">
+//简介
+	//ajax(谷歌技术)
+	// ajax:异步 javascript和XML
+	// 快速创建动态网页的技术,可以实现网页局部异步更新
+	//
+	// ajax是基于http请求对象的技术:
+	// 1.XMLHttpRequwst对象
+	// 2. ActiveXObject("Microsoft.XMLHTTP")ie5/6
+	//
+	// 判断浏览器支持请求方法,防止出错
+	// var xmlhttp;
+	// if (window.XMLHttpRequest){
+	// // code for IE7+, Firefox, Chrome, Opera, Safari
+	// 	  xmlhttp=new XMLHttpRequest();
+ //  	}else {
+ //  		// code for IE6, IE5
+ // 	 	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+ //  	}
+
+
+  	//数据传输
+  	// 接受数据方法:
+  		// 1.xmlhttp.open("GET","test.html",true);method(get/post)/url(文件路径)/async(异步加载)
+  	//发送数据方法
+  		// 2.xmlhttp.send();仅支持post请求
+
+
+  	//POST/GET区别
+  		//1.无法使用缓存文件(更新服务器上的文件或者数据库)/POST
+  		//2.向服务器发送大量数据(POST没有数字限制)/POST
+  		//3.发送包含未知字符的用户输入时,POST比GET更稳定可靠.(主要丢失数据)
+
+
+  	//使用方法
+  		var  Ocontent	=	document.getElementsByTagName("div")[0];
+  		function change(){
+  			var data 	=	"POST-data";
+  			var XMLdata	=	new XMLHttpRequest();//创建ajax对象
+  				XMLdata.onreadystatechange=function(event){//监听ajax事件
+  					if (XML.readyState==4) {//表示解析完成
+  						if (XMLdata.status==200) {//数据请求正常返回200
+  							console.log(XMLdata);
+  						}
+
+  					}
+
+  				}
+  		}
+  		XML.open('POST','url',true);//建立链接,参数:请求方式/路径/是否异步async
+  		XML.setRequestHeader('Content-type','application/x-www-form-urlencoded');//参数:内容位置Header/添加内容value(一般给头部添加字符串)
+  		XMLdata.send(data);//发送数据	
+  		// 参数说明
+  		// onreadystatechange	存储函数（或函数名），每当 readyState 属性改变时，就会调用该函数。
+  		// readyState:
+  		// 存有 XMLHttpRequest 的状态。从 0 到 4 发生变化。
+			//0: 请求未初始化
+			//1: 服务器连接已建立
+			//1: 请求已接收
+			//3: 请求处理中
+			//4: 请求已完成，且响应已就绪
+		//status
+			//200:"OK"
+			//404:未找到页面
+
+
+  		//获取服务器相应
+  		//XMLHttpRequest对象的
+  		//	responseText 返回字符串
+  		//	responseXML 返回XML
+  		//	document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+  		
+
+
+  		// jQuery AJAX
+  	// 		$.ajax({
+   //  			url:'/comm/test1.php',
+   //  			type:'POST', //GET
+   //  			async:true,    //或false,是否异步
+   //  			data:{
+   //      			name:'yang',age:25
+   // 				 },
+   //  			timeout:5000,    //超时时间
+   //  			dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+   //  			beforeSend:function(xhr){
+   //      			console.log(xhr)
+   //      			console.log('发送前')
+   // 				 },
+   //  			success:function(data,textStatus,jqXHR){
+   //      			console.log(data)
+   //     				console.log(textStatus)
+   //      			console.log(jqXHR)
+   //  			},
+   //  			error:function(xhr,textStatus){
+   //      			console.log('错误')
+   //      			console.log(xhr)
+   //      			console.log(textStatus)
+   //  			},
+   //  			complete:function(){
+   //      			console.log('结束')
+   //  			}
+			// })
+	
+
+	// 防止多次点击请求数据实例
+		$(function(){  
+    		$('#btn').click(function(){  
+        		var obj = $(this);  
+        		//has_click  防止重复多次点击  
+       	 		var has_click = obj.attr('has-click');  
+        		if(has_click == '1'){  
+           			return;  
+        		}  
+        		obj.attr('has-click','1');  
+        		var url = '';  
+        		var content = '';  
+       			$.ajax({  
+            		type:'post',  
+            		url:url,  
+            		dataType:'json',  
+            		data:{content:content},  
+            		beforeSend:function(){  
+                		obj.html('正在处理...');  
+            		},success:function(json){  
+                		if(json.code == '1'){  
+                        	//成功  
+                    	}else{  
+                        	//出错  
+                        	obj.html('操作按钮').attr('has-click','0');  
+                    	}  
+                	}  
+        		});  
+    		});  
+		}); 
+
+
+    //简写方式
+    jQuery.post(url,data,success(data, textStatus, jqXHR),dataType)
+    jQuery.get(url,data,success(data, textStatus, jqXHR),dataType)
+    eg:$.ajax({ url: "test.html", context: document.body, success: function(){
+        $(this).addClass("done");
+      }});
+		
+</script>

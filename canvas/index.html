@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>画布操作</title>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="css/Global.css"/>
+	</head>
+	<style>
+		canvas{
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+	<body>
+		<canvas id="mycan" width="" height="">
+			你的浏览器不支持canvas标签!
+		</canvas>
+	</body>
+</html>
+<script src="js/jQuery-2.1.4.js"></script>
+<script>
+	//找到canvas画布
+	var c = document.getElementById("mycan");
+
+	//创建2d画布
+	var ctx = c.getContext("2d");
+	
+	//声明填充的样式
+	ctx.fillStyle="#CCCCCC";
+	
+	//从顶部画方块==x,y坐标,宽度高度
+	ctx.fillRect(0,0,100,100);
+	ctx.stroke();
+	
+	//画直线
+	ctx.moveTo(0,0);
+	ctx.lineTo(600,900);
+	ctx.stroke();
+	
+	//画圆
+	ctx.beginPath();
+	
+	//开始x,y坐标,半径,圆周开始位置,弧长(Math.PI是半圆),false是顺时针
+	ctx.arc(50,50,40,0,2*Math.PI,false);
+	
+	//执行操作
+	ctx.stroke();
+	
+</script>

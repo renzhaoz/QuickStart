@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>slot数据传递</title>
+	</head>
+	<body>
+		<div id="zujian">
+			<button @click="changeModule">切换组件</button>
+			<!--给组件用is绑定注入内容-->
+			<bbb :is="putin"></bbb>
+		</div>
+		
+		<!--模板内容-->
+		<template id="mo">
+			<div>
+				<p>你好啊,二狗!</p>
+			</div>
+		</template>
+		
+		
+		<!--给模板外嵌套一个keep-alive标签可以将模板缓存,避免二次渲染-->
+		<template id="lo">
+			<div>
+				<p>你好啊,小明!</p>
+			</div>
+		</template>
+	</body>
+</html>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script>
+	var vm = new Vue({
+		el: "#zujian",
+		data:{
+			//设置默认注入模板
+			putin:'tem1'
+		},
+		methods:{
+			changeModule(){
+				if(this.putin==="tem1"){
+					this.putin = 'tem2'
+				}else{
+					this.putin = 'tem1'
+				}
+			}
+		},
+		components:{
+			//注册多个待用模板
+			'tem1':{
+				template:"#lo"
+			},
+			'tem2':{
+				template:"#mo"
+			}
+		}
+	});
+</script>

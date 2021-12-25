@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>vue</title>
+		<style>
+			.css1{
+				font-size:50px;
+				color:yellow;
+			}
+
+			.class1{
+				color: red;
+
+			}
+			.class2{
+				font-size:32px;
+			}
+
+			.class3{
+				background:blue;
+			}
+			.class4{
+				text-decoration: underline;
+			}
+			.add1-1{
+				background:#ddd;
+			}
+			.add2-2{
+				color: gold;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+
+			<!-- 注入 -->
+			<p>{{userInfor}}</p>
+			<p v-html="userid"></p>
+
+
+
+			<!-- 样式修改 -->
+			<label for="r1">点击这里修改颜色</label><input type="checkbox" v-model="css1" id="r1">
+			  <br><br>
+			  <div v-bind:class="{'css1': css1}">
+			    big  and yellow！
+			  </div>
+			  <p v-bind:class="classes">可以在data中声明多个class值!</p>
+			  <p v-bind:class="delcss">可以使用compted对返回值进行再操作</p>
+			<p v-bind:class="[add1,add2]">可以在data中修改传回的类名</p>
+			<p v-bind:style="this_style">链接样式</p>
+			<!--<img :src="" :alt="" :width="" />属性绑定方法 -->
+
+
+			  <!-- 逻辑使用 -->
+			  <p>五个一是多少:<span v-bind:class="{'css1':'css1'}">{{5*1}}</span></p>
+			  <p>{{userInfor.split('').reverse().join(',')}}</p>
+
+
+			  <!-- 显示隐藏 -->
+			  <p v-if="seen">现在你看到我了！</p>
+			  <p v-if="ok">隐藏的元素</p>
+			  <p><a v-bind:href="url">点击这里!跳转百度!</a></p>
+
+
+
+
+			  <!-- 事件 -->
+			  <p v-on:click="num+=1">{{num}}</p>
+			  <p @click="say('你好')">参数传递</p>
+			  <p @click.stop="dosomething">阻止事件</p>
+				<form v-on:submit.prevent="putdata" action="abb">阻止提交</form>
+				<p v-on:click.stop.prevent="Do">串联事件</p>
+				<p v-on:submit.prevent>简写</p>
+				<p v-on:click.capture="chose()">事件捕获</p>
+				<p v-on:click.self="doit">点击还原素,而非子元素时生效</p>
+
+
+			  <!-- 双向数据绑定 -->
+			  <p>
+					<p>这是你现今账户余额:{{money}}元!</p>a
+					<input v-model="money" type="text" placeholder="请输入你要转账的金额!">
+			  </p>
+
+
+			<!-- 事件绑定 -->
+			<p>{{ thisobj }}</p>
+    		<button v-on:click="change">{{udel}}</button>
+			
+
+			<!-- 默认是enter按键   such: @keyup.left    right    -->
+    		<input v-model="udel" type="text" placeholder="请选择操作!" @keyup="show4()">
+
+			
+			<!-- 过滤器 -->
+			<p>{{content | capitalize}}</p>
+			<p v-if="Math.random()>0.3">
+				随机数大于0.5
+			</p>
+			<p v-else-if="Math.random()<0.3">
+				随机数小于0.1
+			</p>
+			<p v-else>
+				大于0.1,小于0.5
+			</p>
+			<p v-show="show_this">显示是被允许的!</p>
+
+
+			<!-- 循环语句 -->
+			<ul v-for="detail in alldata">
+				<li>{{detail}}</li>
+			</ul>
+
+
+			<!-- 迭代循环 -->
+			<ul v-for="data in otherdata">
+				<li>{{data}}</li>
+			</ul>
+
+			<!-- 第二参数/第三参数 -->
+			<ul  v-for="(name,data) in otherdata">
+				<li>{{name}}:{{data}}</li>
+			</ul>
+
+
+			<!-- 整数循环元素 -->
+			<ul v-for="i in 10">
+				<li>{{i}}+"一共循环十次"</li>
+			</ul>
+
+			
+			<!-- 参数运算 -->
+			<ul v-for="i in 10">
+				<li>乘10再加10,计算结果为:{{i*10+10}}</li>
+
+			</ul>
+			<div>{{ thisobj.split('').reverse().join('') }}</div>
+			<!-- 新建方法运算方式 -->
+			<p>初始金额:{{money}}</p>
+			<p>用掉1000元,又借了3000元后金额:{{delmoney}}</p>
+
+			<!-- computed属性 -->
+			<p>{{site}}</p>
+
+
+
+			<!-- 表单 -->
+			<input id="aabb" type="checkbox" v-model="checked">
+			<label for="aabb">{{checked}}</label>
+
+			<input type="checkbox" value="小明" v-model="classname">
+			<input type="checkbox" value="小刚" v-model="classname">
+			<input type="checkbox" value="小干" v-model="classname">
+			<h2>{{classname}}</h2>
+
+			<p>你喜欢什么:{{Ulike}}<input type="radio" value="音乐" v-model="Ulike"> <input type="radio" value="跳舞"  v-model="Ulike"></p>
+
+			<select v-model="select" name="this" id="">
+				<option value="百度">111</option>
+				<option value="谷歌">222</option>
+			</select>
+
+			<p>{{this_num}}</p>
+			<input type="text" v-model.number="this_num"><!-- 输入转化为数字 .trim过滤空格-->
+		</div>
+		<!-- 组件 -->
+		<div id="compety">
+			<runoob></runoob>
+			<aabbcc></aabbcc>
+
+			<!-- 不同参数(class/id)元素添加数据 props-->
+			告诉小明: <fff2 isxiaoming="fal"></fff2><br>
+
+			<!-- 双向数据绑定 -->
+			<input type="text" v-model="infor"><br>
+			<fff3 v-bind:mes="infor"></fff3>
+
+			<!-- props循环数据 -->
+			<ol>
+			<loop v-for="it in  its" v-bind:name="it"></loop>
+			</ol>
+			<!-- props验证数据 主要是数据类型验证-->
+
+
+			<p>{{stup_all}}</p>
+			<click1 v-on:click_this="dothis"></click1>
+			<click1 v-on:click_this="dothis"></click1>
+		</div>
+
+		<!-- 自定义指令 -->
+		<div id="zhiling">
+			<p>当页面加载完成时,input元素自动获取焦点</p>
+			<input type="text" v-focus>
+		</div>
+
+		<div id="luyou">
+			<h2>这是一个路由机制</h2>
+			<!-- 控制器 -->
+			<router-link to="/so">百度</router-link>
+			<router-link to="/fa">huya</router-link>
+		
+			<!-- 渲染容器 -->
+			<router-view v-bind:style="styler"></router-view>
+		</div>
+	</body>
+</html>
+
+<script src='https://cdn.bootcss.com/vue/2.2.2/vue.min.js'></script>
+<script src="https://cdn.bootcss.com/vue-router/2.7.0/vue-router.min.js"></script>
+<script>
+	new Vue({
+			el:'#app', 
+			data:{
+				// 注入
+				userInfor:'hello world!',
+				userid:'such as you! <h1>and you!</h1>',
+
+				// 样式
+				css1: false,
+
+				//显示隐藏
+				seen:true,
+				ok:false,
+
+
+				//链接跳转
+				url:'http://www.baidu.com',
+
+
+				// 点击事件
+				num:1,
+
+
+				//双向数据绑定
+				money:"10000",
+
+
+				//事件绑定
+				thisobj:"你好,再见!",
+				udel:"normel",
+
+				//过滤器
+				content:"about",
+				show_this:true,
+
+
+				//数据循环
+				alldata:[
+					1,2,3,4,5,67,75,435,43,53
+				],
+				//数据迭代
+				otherdata:{
+					name:'小明',
+					age:'18岁',
+					sex:'男'
+				},
+				classes:{
+					class1:"true",
+					class2:"true"
+				},
+
+				//判断类名
+				num1:"3",
+				num2:"1",
+
+				//修改类名
+				add1:"add1-1",
+				add2:"add2-2",
+
+
+				//样式表
+				this_style:{
+					color:"red",
+					background:"#000"
+				},
+
+
+				//取值
+				checked:false,
+				classname:[],
+				Ulike:"音乐",
+				select:"百度",
+				this_num:''
+
+			},
+
+			//事件
+			methods:{
+					change:function(){
+						this.thisobj = this.thisobj.split('').reverse().join('')
+					},
+					show4:function(){
+						alert("as you!");
+					},
+					say:function (abc){
+						alert(abc)
+					},
+					chose:function(){
+						alert("选中")
+					}
+					
+				},
+
+
+
+			//过滤器
+			filters:{
+				capitalize: function (value) {
+				      if (!value) return ''
+				      value = value.toString()
+				      return value.charAt(0).toUpperCase() + value.slice(1)
+				    }
+				  },
+
+			//computed属性:get/set
+			computed:{
+				//method 方法也可以实现  只是computed在依赖值发生变化时生效,而method在重新渲染时,函数会重复调用
+				delmoney:function(){
+					return this.money-1000-1000;
+				},
+				site:{
+					get:function(){
+						return this.thisobj+''+this.udel
+					},
+					// 数据处理
+					set:function(value){
+						console.log(value)
+						var names='王小明'
+						this.thisobj=names
+						this.udel=11
+					}
+				},
+				delcss:function(){
+						return{
+							class3:true,
+							class4:true
+						}
+					}
+			}
+
+
+	});
+
+
+	//注册组件
+
+	//全局组件
+	Vue.component('runoob',{
+		template:'<h1>你哈哈哈哈</h1>'
+	});
+
+	//根据属性组件
+	Vue.component('fff2',{
+		props:['isxiaoming'],
+		template:'<em>爸爸爱你吆</em>'
+	});
+
+	//局部组件
+	var thisD={
+		template:'<h2>这是局部组件</h2>'
+	};
+
+
+	//双向数据prop绑定组件
+	Vue.component('fff3',{
+		props:["mes"],
+		template:"<h3>{{mes}}</h3>"
+	});
+	
+	//prop组件循环数据
+	Vue.component('loop',{
+		props:["name"],
+		template:'<li>{{name.realname}}</li>'
+	});
+
+
+	// 组件数据监听
+	Vue.component('click1',{
+		template:'<button v-on:click="click_this">{{count}}</button>',
+		data:function(){
+			return {count:0}
+		},
+		methods:{
+			click_this:function(){
+				this.count+=1
+				this.$emit('click_this')
+			}
+		}
+	});
+	new Vue({
+		el:"#compety",
+		data:{
+			infor:"prop双向数据绑定",
+			its:[
+					{realname:'xiaoming'},
+					{realname:'lanlan'},
+					{realname:'huzi'}
+				],
+			stup_all:0
+		},
+		components:{
+			"aabbcc":thisD, 
+			// 根据属性局部注入
+		},
+		methods:{
+			dothis:function(){
+				this.stup_all+=1
+				// this.$emit("click_this")
+			}
+
+		}
+	});
+
+
+
+	// 指令
+	//注册全局指令
+	Vue.directive('focus',{
+		// 当元素加载完成
+		inserted:function(el){
+			el.focus();
+		}
+	});
+	//局部指令
+	new Vue({
+		el:'#zhiling',
+		// directives:{
+		// 	focus:{
+		// 		inserted:function(el){
+		// 			alert("聚焦加载完成!")
+		// 		}
+		// 	}
+		// }
+	});
+
+
+		
+</script>

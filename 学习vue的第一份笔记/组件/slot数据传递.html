@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>slot数据传递</title>
+	</head>
+	<body>
+		<div id="zujian">
+			<!--多个组件;slot数据传递-->
+			<!--将数据传递给卡槽slot,然后在template中获取-->
+			<compone>
+				<!--这里的slot-scope将数据放入props对象中-->
+				<!--在2.5版本中scope可以被任意元素使用不局限于template-->
+				<div slot-scope="props">
+					<h1>大大撒啊</h1>
+					<p>{{props.data}}</p>
+				</div>
+			</compone>
+		</div>
+		<template id="more">
+			<div>
+				<h1>slot的数据传递</h1>
+				<ul>
+					<slot :data="infor"></slot>
+				</ul>
+			</div>
+		</template>
+	</body>
+</html>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script>
+	var vm = new Vue({
+		el: "#zujian",
+		components: {
+			'compone': {
+				template: "#more",
+				data(){
+					return {
+						infor:'你好啊!'
+					}
+				}
+			}
+		}
+	});
+</script>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>jQuery笔记</title>
+	</head>
+	<body>
+		<span></span>
+
+	</body>
+</html>
+<script type="text/javascript" src="/C:/WEBData/jQuery-2.1.4.js"></script>
+<script type="text/javascript">
+	//jQuery是一个javascript库
+	// 内容:
+		//1.html元素获取
+		//2.元素操作
+		//3.css操作
+		//4.HTML事件函数
+		//5.javascript特效和动画
+		//6.AJAX
+		//7.Utilities
+
+	//注意:应用jQuery之前必须引入这个库,在文档加载完之后执行js
+
+
+		// 一般写法:$(document).ready(function(){})==$(function(){})
+
+
+		// 选择器:
+			// $("*")							//find all
+			// $("p")                          //find p
+			// $("p.inner")					//find p class=inner
+			// $("p#id")						//find p id=id
+			// $(".infor.infoo")				//find which class="infor"+"infoo"
+			// $(".one,.two")                  //find "one" and "two"
+
+		
+		//属性选择器
+			// $("[href]")						//find which have href
+			// $("[href="#"]")					//find which have href=#
+			// $("[href!="#"]")				//find which not'have href!=#
+			// $("[href$=".jpg"]")				//find which href end of ".jpg"
+
+
+		//css选择器
+			//$("p").css({"background":"red"});
+
+
+		//其他
+			// $(this) 						//find foucs now
+			// $("p")							//find all "p"
+			// $("ul li:first")				//find first "li" in "ul"
+			// $("ul li:last")					//find the last li in ul
+			// $("li:odd")						//find which one is odd
+			// $("li:even")					//find which one is even such number 2
+			// $("div#infor .head")			//find ".head" in "div id=infor"
+			// $("ul li:eq(3)")				//find li which number=3 in ul
+			// $("ul li:qt(3)")				//find li which number>3 in ul
+			// $("ul li:lt(3)")				//find li which number<3 in ul
+			// $("div:not(:empty)")			//find all div not empty
+			// $(":header")					//find all "h" title
+			// $(":animated")					//find all document have animated
+			// $(":content("nibushiwo")")		//find all which has content "nibushiwo"
+			// $(":empty")						//find all DOC which empty
+			// $(":hidden")					//find hidden DOC
+			// $(":visible")					//find table
+			// $(":input")						//find all input
+			// $(":text")						//find all input typr=text
+			// $(":enabled")					//find ACtive input
+			// $(":disabled")					//find can't active input
+			// $(":select")					//find all input type=select which be chose 
+			// $(":checked")					//find all input type=check be chose
+
+
+
+
+
+	// 事件/方法
+		// js库$冲突办法
+			//var jq=jQuery.noConflict();//重新定义$字符
+
+
+		//事件
+			// $(document).ready(function() {});    		//when DOC was loaded
+			// $(document).click(function() {});			//click event
+			// $(document).disabled(function()	{})			//double click
+			// $(document).focus(fun) 						//focus event
+			// $(document).mouseover(fun)						//mouse event
+			// $(document).bind(event,DOC,fun)				//add event
+			// $(document).blur(DOC,fun)					//lost focus
+			// $(document).change(DOC,fun)					//input field(写入改变)	
+			// $(document).delegate(childDOC, event, fun)	//for child add evenn future and now
+			// $(document).die()							//remove event with live() add
+			// $(document).error(fun)						//if DOC false add event
+			// $(document).click(function(event){
+			// 		event.preventDefault();					//阻止点击事件
+			// 		event.isDefaultPrevented();				//判断阻止是否生效,是否调用preventDefault()方法
+			//	});	
+
+
+
+			//键盘事件
+			//$(document).keydown()							//键盘按下事件
+			//$(document).keypress()						//键盘插入字符串时触发事件
+			//$(document).keyup()							//键盘按键按下后事件
+			//$(document).live()							//给既定元素绑定事件(未来,现在)	
+			//$(document).load()							//某元素加载完成之后执行的事件
+			//$(document).keydown()	
+			
+
+			//鼠标事件
+			//$(document).mousedown()						//鼠标点击事	
+			//$(document).mouseout();						//鼠标离开事件mouseout包括离开子集范围			
+			//$(document).mouseoleave()						//鼠标离开触发,不包括子集			
+			//$(document).mouseover()						//鼠标进入范围生效,对子集有效	
+			//$(document).mouseenter()						//鼠标进入范围生效
+			//$(document).mousemove()						//鼠标移动事件
+			//$(document).mouseup()							//鼠标弹起事件
+			//$(document).one()								//执行一次事件的方法
+			//$(document).ready()							//当HTML文档就绪时执行
+			//$(document).resize()							//当窗口大小发生改变时发生
+			//$(document).scroll()							//指定元素发生滚动时发生
+			//$(document).select()							//form表单中字符被选中时触发
+			//$(document).submit()							//提交表单时发生的事件
+			//$(document).toggle(fun1,fun2)					//重复发生的事件	
+			//$(document).trigger()							//触发元素的某绑定事件,具有默认的事件效果such点击
+			//$(document).triggerHandler()					//触发元素的绑定事件,但不执行效果
+			//$(document).unbind()							//解除事件
+			//$(document).undelegate()						//移除事件 现在/将来
+			//$(document).unload()							//不加载			
+
+
+
+
+
+		//方法
+			$(document).mousemove(function(e){
+				$("span").text("X:"+e.pageX+",Y:"+e.pageY);//获取当前鼠标位置
+			})
+			$(document).mousedown(function(e){
+				console.log(e);//定义事件
+			})
+			$(document).mousedown(function(){
+				e.result;//返回e							//e.result最后触发事件返回的结果
+			});
+			$(document).event(function(){
+				$("p").html(event.target.nodeName)			//event.target 获取触发事件的元素
+				$(DOC).html(event.timeStamp);				//返回事件点击时间点;1970年1月1日到目前
+				$(DOC).html(event.type);					//返回触发函数的事件类型
+				$(DOC).html(event.which);					//显示键盘按键的唯一ASK值;键位序号
+
+
+
+			})
+
+
+			//效果
+			$(selector).animate(styles,speed,easing,callback) //样式/速度/变化函数/动画执行完执行的函数
+			clearQueue(queueName);//移除元素所有的排队函数
+			delay(milliseconds, 'queueName');//对将执行的函数设置延迟
+			dequeue(queueName);//运行被选元素的下一个排队函数
+			fadeIn(time,callback);//渐入效果
+			fadeOut(time,callback);//渐出效果
+			hide(time,callback);//隐藏效果
+			show();//显示元素
+			fadeTo(speed, 0.5, callbackfunction);//渐变到
+			queue();//显示被选元素的排队函数/或继续排队添加函数
+			slideUp(slow/400/fast);slideDown('slow/400/fast',callback);//上下拉
+			toggle();//显示和隐藏
+			addClass('class_name');//添加事件
+			after('Some text');//之后添加内容
+			append('Some text')//之内添加内容
+			appendTo(doc)//添加向某个元素
+			attr();//返回属性值
+			before('content');//之前添加内容
+			clone(boolean, boolean);//克隆元素
+			detach();//移除元素,保留所有事件
+			empty();//删除所有子节点
+			hasClass('className');//检查指定类名
+			insertAfter('selector');//插入到元素之后
+			insertBefore('selector')//插入到指定元素之前
+			prepend('text('some text')');//在元素开头插入指定内容
+			prependTo('selector');//向每个元素开头插入指定内容
+			remove();//移除所有匹配的元素
+			removeAttr('attribute name');//移除元素某一属性
+			removeClass('class name');//移除元素某一类名
+			replaceAll('data name');//替换掉原来数据/不包括方法
+			replaceWith()//替换原来数据,包括方法
+			text();//设置返回文本
+			toggleClass('selector');//重复天机类名
+			unwrap(queueName);//移除替换父级
+			wrap('<div class="extra-wrapper"></div>');//用指定元素包裹
+			wrapAll('<div class="extra-wrapper"></div>');//包裹所有
+			wrapInner('<div class="extra-wrapper"></div>');//对每一个进行包裹
+			val();//返回或者设置
+			css();//设置css属性
+			height(integer);//设置返回高
+			offset(coordinates);//返回相对于父级的位置
+			offsetParent();//返回最近的定位外包元素
+			position();//返回相对于父级的位置
+			scrollLeft(value);//返回或者设置左右滚动的值
+			scrollTop(value);//返回设置上下滚动的值
+			width(integer);//返回或设置元素的宽度
+			innerWidth();//宽内边距
+			innerHeight();//高内边距
+			outerWidth();//border
+			outerHeight();//border
+
+
+
+
+
+		//遍历
+			.add('selector/elements/html');//添加至
+			.addself();//添加至当前
+			.children('selector');//所有子集节点
+			.closest('selector',callback)//从当前元素节点开始,寻找父级元素
+			.contents();//获取每个子节点
+			.each();//寻找每一个节点
+			.end();//串联同一方法find(a).end().find(b)
+			.eq();//负数从最后一个向前找
+			.filter();//继续执行,类似end
+			.find('selector');//寻找
+			.first();//第一个元素
+			.map();
+			$(':checkbox').map(function() {
+ 				 return this.id;
+			}).get().join(',');//返回一个数组
+			.has(seleter);//对含有某一元素的元素
+			.is(seleter);//是某一元素
+			$target;//自身
+			.last();//最后一个元素
+			.next(selector);//下一个元素
+			.nextAll(selector);//下面所有的元素
+			.nextUntil(selector);//选择一下所有直到selector
+			.not();//匹配中删除
+			.offsetParent();//寻找定位元素的父级元素
+			.parent(selector);//父级元素
+			.parents(selector);//所有父辈元素
+			.parentsUntil(selector);//直到父辈元素之间的所有元素
+			.prev(selector);//相邻的长兄
+			.prevAll(selector);//所有相邻长兄
+			.prevUntil(selector);//直达长兄之间的所有元素
+			.siblings('selector');//同辈元素
+			.slice(1,10);//指定元素子集范围
+
+
+			.data('name', 'value');//储存数据
+			boc=$(doc).get(0);
+			//boc.nodename/innerHTML
+			.index(selector/element);//返回指定元素的index位置
+			.size();//返回指定元素的数量
+			.toArray();//将指定集合放置数组中
+</script>

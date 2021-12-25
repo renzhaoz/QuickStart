@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<header>
+		<script type="text/javascript" src="js/jQuery-2.1.4.js"></script>
+	</header>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		.box>img {
+			width: 100%;
+			height: 100%;
+		}
+		.box{
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			z-index: 9999999;
+		}
+	</style>
+
+	<body>
+		<div class="box" style="border: 1px solid red;">
+
+		</div>
+		<canvas id="myCanvas"  style="border:1px solid #d3d3d3;">
+    		Your browser does not support the HTML5 canvas tag.
+		</canvas>
+
+		<script>
+			var c = document.getElementById("myCanvas");
+			c.width=$(document).width();
+    		c.height=$(document).height();
+			var ctx = c.getContext("2d");
+			var img = 	new Image();
+			ctx.fillStyle = "#fff";
+			ctx.font = "30px Arial";
+			img.src = "img/d-04-bg.png";
+			img.onload = function() {
+				ctx.drawImage(img, 0, 0, c.width, c.height);
+				ctx.fillText("1", $(document).width() * 0.3, $(document).height() * 0.3);
+				ctx.stroke();
+			};
+
+			var img1 = convertCanvasToImage(c);
+			$('.box').append(img1);
+			console.log(img1);
+
+			function convertCanvasToImage(canvas) {
+				var image1 = new Image();
+				image1.src = canvas.toDataURL("image/png");
+				return image1;
+			}
+		</script>

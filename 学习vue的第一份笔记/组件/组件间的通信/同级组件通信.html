@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>同级组件间的通信</title>
+	</head>
+	<style>
+		p{
+			line-height: 30px;
+			background: lightblue;
+		}
+	</style>
+	<body>
+		<div id="zujian">
+			<aaa></aaa>
+			<bbb></bbb>
+		</div>
+		<template id="ac">
+			<div>
+				<button>add</button>
+			</div>
+		</template>
+		<template id="ag">
+			<div>
+				<button>prase</button>
+			</div>
+		</template>
+	</body>
+</html>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script>
+var vm=new Vue({
+	el: "#zujian",
+	data:{
+		data:'nihao'
+	},
+	components:{
+		'aaa':{
+			template:'#ac',
+		},
+		'bbb':{
+			template:'#ag',
+		}
+	}
+	
+});
+</script>

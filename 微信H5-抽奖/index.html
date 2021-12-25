@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>抽奖</title>
+		<link rel="stylesheet" type="text/css" href="css/Global.css" />
+		<link rel="stylesheet" type="text/css" href="css/styleCJ.css" />
+		<script src="js/common.js"></script>
+	</head>
+
+	<body>
+		<div id="wraper">
+			<div id="userData">
+				<div class="Uget">
+					<span v-bind:class="{get:getInfo[0]}"></span>
+					<span v-bind:class="{get:getInfo[1]}"></span>
+					<span v-bind:class="{get:getInfo[2]}"></span>
+					<span v-bind:class="{get:getInfo[3]}"></span>
+					<span v-bind:class="{get:getInfo[4]}"></span>
+					<span v-bind:class="{get:getInfo[5]}"></span>
+				</div>
+				<h3 class="count" :rel="UNUMBER">剩余{{uucount}}次</h3>
+				<div class="btnWrap">
+					<div @click="addcount1" class="addCount"></div>
+					<div @click="role1" class="role"></div>
+				</div>
+				<div @click="shareBtn" v-if="sh" class="share">
+					<img src="img/share.jpg" />
+				</div>
+				<div @click="delHide" v-if="allGet()" class="success">
+					<img src="img/success.jpg" alt="" />
+				</div>
+				<div @click="roleBtn" v-if="ro" class="rolePage">
+					<img src="img/role.jpg" />
+				</div>
+			</div>
+			<div class="shanDeng" id="deng">
+				<div id="luck">
+					<!-- luck -->
+					<table>
+						<tr>
+							<td class="luck-unit luck-unit-0"></td>
+							<td class="luck-unit luck-unit-1"></td>
+							<td class="luck-unit luck-unit-2"></td>
+						</tr>
+						<tr>
+							<td class="luck-unit luck-unit-7"></td>
+							<td class="cjBtn" id="btn"></td>
+							<td class="luck-unit luck-unit-3"></td>
+						</tr>
+						<tr>
+							<td class="luck-unit luck-unit-6"></td>
+							<td class="luck-unit luck-unit-5"></td>
+							<td class="luck-unit luck-unit-4"></td>
+						</tr>
+					</table>
+				</div>
+				<!-- luckEnd -->
+			</div>
+		</div>
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script type="text/javascript" src="js/vue2.1.8.js"></script>
+		<script type="text/javascript" src="js/vue-resource.min.js"></script>
+		<script src="js/jquery-1.8.3.min.js"></script>
+		<script>
+			var vm = new Vue({
+				el: "#wraper",
+				data: {
+					uucount: '',
+					getInfo: '',
+					shareState: '',
+					UNUMBER: '',
+					sh: false,
+					ro: false
+				},
+				methods: {
+					addcount1: function() {
+						this.sh = true;
+						console.log("增加次数!");
+					},
+					role1: function() {
+						this.ro = true;
+						$(".rolePage").fadeIn(300);
+						console.log("游戏规则!");
+					},
+					allGet: function() {
+						var al = false;
+						for(var i = 0; i < this.getInfo.length; i++) {
+							if(this.getInfo[i] == 0) {
+								return false;
+							} else {
+								al = true;
+							}
+						}
+						return al;
+					},
+					delHide: function() {
+						$(".success").fadeOut(300);
+					},
+					shareBtn: function() {
+						this.sh = false;
+					},
+					roleBtn: function() {
+						this.ro = false;
+					}
+				},
+				mounted() {
+					this.$http.get('build/setdata.php').then(function(res) {
+						//读取数据
+						this.$http.get('build/udata.php').then(function(res) {
+							console.log(res);
+							//收集状态
+							var dodc = res.body[0].getstate.split(",");
+							var arr = [];
+							for (var i = 0; i < dodc.length; i++) {
+							    arr.push(Number.parseInt(dodc[i]));
+							}
+							this.getInfo = arr;
+							
+//							转化数组
+//							this.getInfo = JSON.parse(this.getInfo);
+							//剩余次数
+							this.UNUMBER = res.body[0].ucount;
+							this.uucount = res.body[0].ucount;
+
+						}, function() {
+							alert("数据请求失败!");
+						});
+						//						console.log(res);
+					}, function() {
+						alert("数据请求失败!");
+					});
+
+				}
+			});
+
+			var luck = {
+				index: 0, //当前转动到哪个位置，起点位置
+				count: 0, //总共有多少个位置
+				timer: 0, //setTimeout的ID，用clearTimeout清除
+				speed: 20, //初始转动速度
+				times: 0, //转动次数
+				cycle: 50, //转动基本次数：即至少需要转动多少次再进入抽奖环节
+				prize: -1, //中奖位置
+				init: function(id) {
+					if($("#" + id).find(".luck-unit").length > 0) {
+						$luck = $("#" + id);
+						$units = $luck.find(".luck-unit");
+						this.obj = $luck;
+						this.count = $units.length;
+						$luck.find(".luck-unit-" + this.index).addClass("active");
+					};
+				},
+
+				roll: function() {
+					var index = this.index;
+					var count = this.count;
+					var luck = this.obj;
+					$(luck).find(".luck-unit-" + index).removeClass("active");
+					index += 1;
+					if(index > count - 1) {
+						index = 0;
+					};
+					$(luck).find(".luck-unit-" + index).addClass("active");
+					this.index = index;
+					return false;
+				},
+				stop: function(index) {
+					getNumber = this.prize;
+					this.prize = index;
+					return false;
+				}
+			};
+
+			function roll() {
+				luck.times += 1;
+				luck.roll();
+				if(luck.times > luck.cycle + 10 && luck.prize == luck.index) {
+					clearTimeout(luck.timer);
+					luck.prize = -1;
+					luck.times = 0;
+					click = false;
+				} else {
+					if(luck.times < luck.cycle) {
+						luck.speed -= 10;
+					} else if(luck.times == luck.cycle) {
+						var index = Math.random() * 10;
+						console.log(index);
+						//中奖概率
+						if(index > 8) {
+							index = 1;
+							vm.UNUMBER = 1;
+						} else if(index < 2) {
+							index = 6;
+							vm.UNUMBER = 6;
+						} else if(index >= 7 && index <= 8) {
+							index = 0;
+							vm.UNUMBER = 0;
+							vm.getInfo[0] = 1;
+						} else if(index >= 6 && index < 7) {
+							index = 7;
+							vm.UNUMBER = 7;
+							vm.getInfo[3] = 1;
+						} else if(index >= 5 && index < 6) {
+							index = 3;
+							vm.UNUMBER = 3;
+							vm.getInfo[4] = 1;
+						} else if(index >= 4 && index < 5) {
+							index = 4;
+							vm.UNUMBER = 4;
+							vm.getInfo[1] = 1;
+						} else if(index >= 3 && index < 4) {
+							index = 5;
+							vm.UNUMBER = 5;
+							vm.getInfo[5] = 1;
+						} else {
+							index = 2;
+							vm.UNUMBER = 2;
+							vm.getInfo[2] = 1;
+						}
+						console.log(vm.getInfo);
+						var asd = vm.getInfo.join(",");
+						vm.$http.get('build/udata.php', {
+							params: {
+								aa: asd,
+								bb: vm.uucount
+							}
+						}).then(function(res) {
+							//修改状态
+							console.log(res);
+
+						}, function() {
+							alert("数据请求失败!");
+						});
+						//vm.getInfo[vm.UNUMBER]=1;
+						luck.prize = index; //最终中奖位置
+						//						console.log(luck.prize);
+					} else {
+						if(luck.times > luck.cycle + 10 && ((luck.prize == 0 && luck.index == 7) || luck.prize == luck.index + 1)) {
+							luck.speed += 110;
+						} else {
+							luck.speed += 20;
+						}
+					}
+					if(luck.speed < 40) {
+						luck.speed = 40;
+					};
+					luck.timer = setTimeout(function() {
+						roll();
+					}, luck.speed);
+				}
+				return false;
+			}
+			var click = false;
+			window.onload = function() {
+				luck.init('luck');
+				$("#btn").click(function() {
+					if(vm.uucount == 0) {
+						alert("你没有抽奖机会了!");
+					} else {
+						//按下弹起效果
+						$("#btn").addClass("cjBtnDom");
+						setTimeout(function() {
+							$("#btn").removeClass("cjBtnDom");
+						}, 900);
+						if(click) {
+							return false;
+						} else {
+							vm.uucount = vm.uucount - 1;
+							luck.speed = 100;
+							roll();
+							click = true;
+							return false;
+						}
+					}
+
+				});
+			}
+		</script>
+	</body>
+
+</html>

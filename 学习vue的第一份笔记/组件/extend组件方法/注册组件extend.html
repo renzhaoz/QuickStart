@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>组件</title>
+	</head>
+	<body>
+		<div id="zujian">
+			<aaa_i></aaa_i>	
+		</div>
+	</body>
+
+</html>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script>
+	//局部组件
+	var Aaa=Vue.extend({
+		template:"<h3>{{msg}}</h3>",
+		data(){
+			return {msg:'dddddd'}
+		}
+	});
+	Vue.component('aaa',Aaa)
+	var vm = new Vue({
+		el: '#zujian',
+		components:{//局部组件,可以放到内容中
+			"aaa_i":Aaa
+		}
+	});
+</script>

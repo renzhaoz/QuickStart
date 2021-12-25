@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>样式</title>
+		<style>
+			.style1{
+				color:red;
+			}
+			.style2{
+				font-size:44px;
+			}
+			.gold{
+				color: gold;
+			}
+			.bgRed{
+				background:purple;
+			}
+			.isRed{
+				background: red;
+			}
+			.isBig{
+				font-size:33px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<!--写法1-->
+			<p v-bind:class="{style1:isRed,style2:isBig}">动态切换class值,改变元素样式!</p>
+			
+			<!--写法2-->
+			<h2 v-bind:class="myObj">Is a good day,isn't that?</h2>
+			
+			<!--绑定计算属性-->
+			<em v-bind:class="newClass">这些字是斜体字,也就是说它是歪的!</em>
+			
+			<!--绑定class-->
+			<p v-bind:class="[active,actived]">数组形式的class</p>
+			<!--<div v-bind:class="[isActive ? activeClass : '', errorClass]"></div>-->
+			<!--这样写将始终添加 errorClass，但是只有在 isActive 是 true 时才添加 activeClass。-->
+			
+			<!--组件样式-->
+			<aaa class="isRed"></aaa>
+			
+			<!--绑定css样式-->
+			<p v-bind:style="{color:aaa,boxShadow:bbb}">直接绑定style样式内的css对象值</p>
+		</div>
+		<template id="iou">
+				<div class="isBig">
+					<em class="isBig">aaa模板的class会被继承到外层div</em>
+				</div>
+		</template>
+	</body>
+</html>
+<script src="../Vue2.5.2.js"></script>
+<script>
+	//全集组件
+	Vue.component("aaa",{
+		template:"#iou",
+	});
+	var mvc=new Vue({
+		el:'#app',
+		data:{
+			isRed:true,
+			isBig:true,
+			myObj:{
+				gold:true,
+				bgRed:true
+			},
+			active:'isRed',
+			actived:'isBig',
+			aaa:"red",
+			bbb:'5px 5px 5px red'
+		},
+		computed:{
+			newClass:function(res){
+				return {
+					isRed:1<2,
+					isBig:22<2
+				}
+			}
+		}
+		//template在id=app内使用局部组件,否则使用全局
+//		components:{
+//			"aaa":{
+//				template:'#iou'
+//			}
+//		}
+
+		
+	});
+</script>

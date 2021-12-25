@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>组件</title>
+	</head>
+	<body>
+		<div id="zujian">
+			<aaa></aaa>	
+			<bbb></bbb>
+		</div>
+	</body>
+
+</html>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script>
+	//局部组件
+	var Bbb={
+		template:"<h3>{{infor}}</h3>",
+		data(){
+			return {
+				infor:'你笑个辣子'
+			}
+		}
+	}
+	var Aaa=Vue.extend({
+		template:"<h3>{{msg}}</h3>",
+		data(){
+			return {
+				msg:'啊哈哈哈哈哈'
+			}
+		}
+	})
+	
+	var vm = new Vue({
+		el: '#zujian',
+		data: {
+
+		},
+		methods: {
+
+		},
+		components:{
+			//局部组件
+			"aaa":Aaa,
+			"bbb":Bbb,
+		}
+	});
+</script>

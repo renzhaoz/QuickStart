@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>animate+vue</title>
+		<style>
+			.box{
+				width:100px;
+				height: 100px;
+				background: red;
+			}
+			.fade-enter-active, .fade-leave-active{
+			  transition: all 1s linear;
+			  transform:translate3d(0,100px,0);
+			}
+			.fade-enter, .fade-leave-active{
+			  transform:translate3d(0,0,0)
+			}
+		</style>
+		<link rel="stylesheet" type="text/css" href="../animate.css"/>
+		<!--v-enter: 定义进入过渡的开始状态。在元素被插入时生效，在下一个帧移除。
+		v-enter-active: 定义进入过渡的结束状态。在元素被插入时生效，在transition/animation 完成之后移除。
+		v-leave: 定义离开过渡的开始状态。在离开过渡被触发时生效，在下一个帧移除。
+		v-leave-active: 定义离开过渡的结束状态。在离开过渡被触发时生效，在transition/animation 完成之后移除。-->
+	</head>
+	<body>
+		<div id="data">
+			<button @click="show()">按钮</button>
+			<transition name="fade">
+				<div class="box" v-show="ddc"></div>
+			</transition>
+		</div>
+	</body>
+</html>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script>
+	//vue resource数据请求
+	//跨域
+	new Vue({
+		el:'#data',
+		data:{
+			ddc:true
+		},
+		methods:{
+			show(){
+				this.ddc=!this.ddc
+			}
+		}
+	});
+</script>

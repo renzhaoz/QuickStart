@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Git笔记</title>
+	</head>
+	<body>
+		<pre>
+			简介:
+				如下,新建的learnGit文件夹是我们的工作区,git和svn不同之处就是存在暂存区的概念;
+				工作区有一个隐藏目录.git,这个不是工作区,而是git的版本库
+				版本库由head开始,即master的第一个指针
+				git add操作是将文件放入暂存区,commit操作提交更改,实际是将暂存区的所有内容提交到当前分支(注意未添加(add)到暂存区的修改文件是不会被提交的(commit))
+				Git是跟踪修改的，每次修改，如果不add到暂存区，那就不会加入到commit中
+			操作流程:
+				1:安装git
+				2:找到所有开始所有程序,git Bash
+				3:声明使用者信息:
+					^git config --global user.name "Your Name"
+					^git config --global user.email "youwillbeyou@163.com"
+				4.新建版本库(仓库),在这里所有的文件都将被git,以便某时刻进行还原
+					^mkdir learnGit 			在根目录下创建文件
+					^cd learnGit 			进入learnGit文件
+					^pwd 					显示当前目录
+						./C/User/Administrator/learnGit
+				5.初始化git,以便管理
+					^git init
+						.Initialized empty Git repository in C:/Users/Administrator/learngit/.git/
+				6.在leearnGit下新建一个text文件(test.txt),添加到仓库中
+					^git add test.txt 			no news is good news-没消息就是好消息 Unix
+				7.将文件提交到仓库
+					^git commit -m "I do some thing,you dont know!"  -m后的文本是提醒你为什么修改这个东西,类似备注
+						.[master (root-commit) 44998c0] I like but u! 	文件被提交(备注:i like but u)
+ 						.1 file changed, 2 insertions(+) 				一个文件改变,两行内容被修改(原来添加的内容!)
+ 						.create mode 100644 test.txt 					新建文件类型100,权限644文件:test.txt
+						<!--注意-->
+						commit可以一次提交多个文件,文件必须在根目录下
+						^git add file.txt
+						^git add file2.txt file3.txt
+						^git commit -m "xiaoming add 3 files!"
+ 				8.修改本地文件
+ 					^git status
+ 					<!--文件已经修改,但未提交到仓库-->
+ 						.On branch master
+						.Changes not staged for commit:
+  							(use "git add <file>..." to update what will be committed)
+  							(use "git checkout -- <file>..." to discard changes in working directory)
+
+        						modified:   test.txt
+
+						.no changes added to commit (use "git add" and/or "git commit -a")
+				9.查看修改内容
+					^git diff learnGit.txt
+						.diff --git a/test.txt b/test.txt
+						.index 3323079..7aa2869 100644
+						.--- a/test.txt
+						.+++ b/test.txt
+						.@@ -1,2 +1,2 @@
+						.-Git is a tool,for your work.     原文件信息
+						.+Git is a tool,is free,is good.   现在信息
+						.it can save your state every time;
+						.\ No newline at end of file
+				10.再次提交
+					^git add text.txt 				添加text.txt到git仓库
+					^git status 						查看当前状态
+						.On branch master
+						.Changes to be committed:
+  							(use "git reset HEAD <file>..." to unstage)
+
+        							modified:   test.txt
+						<!--要被修改的内容包括test.txt-->
+					^git commit -m "x修改了第一行" 		提交到git
+					^git status
+						On branch master
+						nothing to commit, working tree clean
+						<!--没有需要提交的内容,工作目录是干净的-->
+					**/git status可以随时掌握仓库的工作区状态,如果git status告诉你文件被修改,可以通过git diff查看修改内容/**
+				11.产看历史记录
+					^git log  					提交日志
+					^git log --pretty=oneline 	简略化的提交日志
+				12.版本回退
+					^git reset --hart HEAD^ 		返回上一个版本:HEAD^;上上个版本:HEAD^^;上一百个版本:HEAD 100^
+						HEAD is now at 761a1fe 小明修改了第一行!
+				13.查看内容
+					^cat test.txt 				查看这个版本的内容
+				14.查看现在的提交日志
+					^git log    					查看提交记录,找到id
+				15.时光回流
+					^git reset --hard 44998 		44998是版本id的前几位(未关掉命令行情况下)
+					^git reflog 					可以记录每一次的提交信息,以及其id(关闭命令行情况下,查找版本id)					
+				16.撤销操作
+					^git checkout -- test.txt     将工作区的修改全部撤销
+						a.修改工作区的文档,撤销操作
+						b.修改暂存区的文档,撤销操作
+						c.修改版本库的文档,撤销操作!
+						**/如果是在工作区修改文档,然后进行转移至暂存区,或者版本库的文档,进行checkout操作,是不能撤销操作的!/**
+						
+				17.工作区到暂存区到版本库的回退
+					^git reset HEAD test.txt 		操作可以将add到暂存区的文件回退至工作区
+					
+				18.提交到版本库的回退
+					^git reset --hard 44998 			版本回退
+					
+					**/
+					注意:
+						1.当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令git checkout -- file。
+						2.当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令git reset HEAD file，就回到了场景1，第二步按场景1操作。
+						3.已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。
+					/**
+				19.删除操作
+					^git rm test.txt 				将文件从版本库删除然后commit/或者在文件夹中直接删除
+					^git checkout -- test.txt 		恢复删除操作
+				
+				
+				
+				
+						<!--远程仓库的链接GitHub-->
+							1.在git目录下寻找.ssh文件
+							2.若不存在
+								ssh-keygen -t rsa -C "邮箱"
+							3.找到id_rsa和id_rsa.pub两个文件,第一个是私有文件密码,第二个是共有文件密码;
+							copy共有密码,复制粘贴到github账户ssh设置中(settinig中),title可以直接乱写;
+							4.在github中创建一个新的仓库
+							5.git remote add origin git@github.com:github账号/仓库名.git 执行链接命令
+								错误:fatal: remote origin already exists.
+									解决办法:
+										a.git remote rm origin
+										b.git remote add origin git@github.com:github账号/仓库名.git
+											
+							6.git push -u origin master 将本地仓库推送到远程仓库,首次提交:-u操作会将本地的分支推送到远程和远程的分支关联,这样就可以看到所有的历史操作
+								<!--注意首次链接远程仓库的时候的会提示风险警告,需要输入yes-->
+							7.再次提交
+								git push origin master  提交的是commit的内容,也就是版本库的内容
+							
+							
+						<!--从远程仓库克隆一个本地库-->
+							1.创建几个远程库:new repository选项
+							2.勾选initialize this repoistory with a README选项
+							3.执行命令
+								git clone git@github:githubrenzhao/pro.git
+								<!--克隆远程库到本地-->
+				
+				20.分支
+					#创建分支:
+						a.git checkout -b dev 		创建dev分支
+						b.git checkout dev 			指向切换至dev分支
+						以上两部分简写:git checkout -b dev
+					#查看分支当前所有分支:git branch
+						*分支合并在新分支根目录中添加一个新文件进行add和commit,然后进行分支切换到master,dev分支的内容消失了
+					#分支合并
+						^git merge dev:合并dev到master
+						^git branch -d dev:删除dev分支
+						^git branch:产看所有分支,只能发现master分支了,分支合并完成
+						
+						**?git鼓励使用分支,这样更安全和便捷?**
+						
+						^git brabch 查看分支
+						^git branch name 创建分支
+						^git checkout name 切换分支
+						^git cehnck -b name 创建切换分支
+						^git merge name 合并当前分支到master
+						^git branch -d name 删除分支
+					#问题#
+						当在分支dev进行文档修改提交,切换到master分支再次进行相同内容修改提交后,进行分支合并,master分支和dev分支都有该文件的不同修改信息,那么就会报错,需要你选择
+						其中一个修改为最终修改;
+						
+						
+					#上述操作后分支信息会被删除,会丢掉分支信息#
+						*不会丢掉分支信息的merge分支合并*
+						^git checkout -b dev 	创建新分支,切换到dev分支
+						^git add test.txt 		添加文件
+						^git commit -m "113" 	提交文件
+						^git checkout master 	切换到master分支
+						^git merge --no-ff -m 'merge with no-ff' dev 合并分支dev到master
+					
+					
+					
+					
+					#未完成的分支,保存临时工作状态#
+						当当前的分支正在工作中,需要在另外一个分支进行工作时,保存当前工作状态的分支(未完成,不能提交)
+						^git stash 					保存当前分支信息
+						^git status 				查看当前分支,显示工作区clean
+						^git checkout master 		切换到master分支
+						^git checkout -b 修改bug 	创建切换至bug分支
+							**修改完成
+						^git add test.txt 				添加至缓存区
+						^git commit -m 'add' 			提交到版本库 
+						^git checkout master 			切换到master分支
+						^git merge --no-ff -m '1' bug 	合并bug分支,保留分支信息
+						^git branch -d bug 				删除bug分支
+						^git checkout dev 				切换到当前的未完成的分支
+						
+						^git status 					查看状态,未找到未提交状态
+						
+						^git stash list 				查看分支临时储存区列表
+						^git stash apply 				恢复方法一:恢复工作区,储存的工作区不会删除
+						^git stash pop 					恢复方法二:恢复工作区,删除储存区
+						^git stash drop 				删除分支上储存的工作区
+						^git stash apply stash@{1}      恢复临时储存区的临时列表1,列表信息用git stash list列表
+						
+						#*临时修改的分支已提交,但不需要合并*
+						^git branch -D bug 				<强行删除>没有合并的分支,并清除分支
+						
+						
+						
+						
+					#*多人协作*#
+						^git remote 								查看当前远程仓库信息
+						^git clone git@github.com:number/name.git 	链接远程仓库
+						^git remote -v 								显示详细远程仓库信息
+						^git push origin name 						推送分支
+						^
+						
+						
+						
+				
+				
+				
+				22.版本标签管理
+					^git checkout master 							切换到master分支
+					^git tag v1.0 									赋予标签v1.0
+					^git tag 										查看版本号
+					^git tag v0.9 622369 							给已发布过的id为id的版本打上版本号
+					^git show v0.9 									查看0.9版本的版本信息
+					^git tag -a v1.1 -m "这是新版本" id 				带有版本说明的标签
+					^git tag -s v0.2 -m "new" id 					带有签名信息的标签(username,email)
+					^git tag -d v0.5 								删除标签0.5
+					^git push origin v1.0 							推送1.0版本
+					^git push origin --tags 						一次推送所有的标签
+					
+					**删除远程的标签**
+						^git tag -d v0.1 							先删除本地标签
+						^git push origin :refs/tags/v0.9 			再删除远程仓库的标签信息
+						
+
+						
+						
+					
+						
+					
+					
+					
+								
+							
+					
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		</pre>
+	</body>
+</html>

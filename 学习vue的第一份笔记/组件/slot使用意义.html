@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>组件的插槽</title>
+	</head>
+
+	<body>
+		<div id="zujian">
+			<h6>当原有组件中存在内容时,模板中使用slot标签,组件中的内容将显示在slot标签位置!</h6>
+			<em>这样写组件内容将会被模板干掉</em>
+			<aaa>
+				<div slot>
+					<em>你好,我是组件中原有内容!</em><br />
+					<i>我是组件 中的i标签</i>
+				</div>
+			</aaa>
+		</div>
+		<template id="one">
+			<div>
+				<h2>标题</h2>
+				<h3>title</h3>
+				<slot>在这里显示组建中原有的东西!</slot>
+			</div>
+		</template>
+	</body>
+
+</html>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script>
+	var vm = new Vue({
+		el: "#zujian",
+		components: {
+			'aaa': {
+				template: '#one',
+			}
+		}
+	});
+</script>

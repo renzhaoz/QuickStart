@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>render函数(数据注入/加载)</title>
+	</head>
+
+	<body>
+		<div id="data">
+			<anchored-heading :level="1">Hello world!</anchored-heading>
+		</div>
+	</body>
+</html>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script>
+	//在vue组件化开发中,template被用于放置html
+	//有的时候也需要js,name就需要render函数
+	Vue.component('anchored-heading', {
+		render: function(createElement) {
+			return createElement(
+				'h' + this.level, // tag name 标签名称
+				this.$slots.default // 子组件中的阵列
+			)
+		},
+		props: {
+			level: {
+				type: Number,
+				required: true
+			}
+		}
+	})
+</script>

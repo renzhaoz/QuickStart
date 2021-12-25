@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>数据循环v-for</title>
+	</head>
+	<body>
+		<div id="app">
+			<ul>
+				<template v-for="num in arr">
+					<li>{{num.name}}</li>
+					<li>{{num.age}}</li>
+					<li>{{num.sex}}</li>
+				</template>
+			</ul>
+			<hr />
+			<!--v-for和v-if的使用-->
+			<p>v-for的层级必v-if高,表示v-if会判断每一个数据</p>
+			<ul v-for="num in arr" v-if="1==1">
+				<li>{{num.name}}</li>
+				<li>{{num.age}}</li>
+				<li>{{num.sex}}</li>
+			</ul>
+			<p v-else>没有数据!</p>
+			<hr />
+			<ul v-for="num in arr" v-if="1==2">
+				<li>{{num.name}}</li>
+				<li>{{num.age}}</li>
+				<li>{{num.sex}}</li>
+			</ul>
+			<p v-else>没有数据!</p>
+		</div>
+	</body>
+</html>
+<script src="../Vue2.5.2.js"></script>
+<script>
+	var mvc=new Vue({
+		el:'#app',
+		data:{
+			arr:[{
+				name:'小明',
+				age:'12',
+				sex:"男"
+			},
+			{
+				name:'二蛋',
+				age:'15',
+				sex:"男"
+			},{
+				name:'冬瓜',
+				age:'18',
+				sex:"女"
+			}]	
+		}
+	});
+	
+</script>
